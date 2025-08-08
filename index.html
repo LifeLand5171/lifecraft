@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Life服务器_网站</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <style>
+        /* 实时渐变边框动画 */
+        @keyframes borderGradient {
+            0% {
+                border-image: linear-gradient(90deg, #d0d0d0, #a0a0a0, #d0d0d0) 1;
+            }
+            50% {
+                border-image: linear-gradient(90deg, #a0a0a0, #d0d0d0, #a0a0a0) 1;
+            }
+            100% {
+                border-image: linear-gradient(90deg, #d0d0d0, #a0a0a0, #d0d0d0) 1;
+            }
+        }
+        
+        .animated-border {
+            border: 3px solid;
+            animation: borderGradient 3s ease-in-out infinite;
+        }
+        
+        /* 模态框过渡动画 */
+        .modal-enter {
+            opacity: 0;
+            transform: scale(0.95) translateY(10px);
+        }
+        
+        .modal-enter-active {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+            transition: opacity 300ms ease-out, transform 300ms ease-out;
+        }
+        
+        .modal-exit {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+        
+        .modal-exit-active {
+            opacity: 0;
+            transform: scale(0.95) translateY(10px);
+            transition: opacity 200ms ease-in, transform 200ms ease-in;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 p-4 md:p-6 max-w-4xl mx-auto">
+    <!-- 标题 - 确保不换行 -->
+    <h1 class="text-3xl md:text-5xl font-bold text-center my-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 animate-pulse whitespace-nowrap overflow-x-auto py-2">
+        :)您好,欢迎光临Life服务器_网站
+    </h1>
+
+    <!-- 搜索框 -->
+    <div class="mb-8 relative">
+        <input type="text" id="search" placeholder="搜索服务器内容..." 
+               class="w-full p-3 border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none transition-all shadow-sm">
+        <div class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+            <i class="fa fa-search"></i>
+        </div>
+        <div id="search-results" class="border border-gray-200 mt-1 rounded-lg shadow-md hidden absolute w-full bg-white z-10"></div>
+    </div>
+
+    <!-- 内容区 -->
+    <div class="space-y-6" id="content">
+        <!-- 服务器核心玩法 - 可点击元素 -->
+        <div id="core-gameplay" class="p-4 border border-blue-200 rounded-xl shadow-sm hover:shadow-md transition-all cursor-pointer bg-gradient-to-br from-blue-50 to-indigo-50 group">
+            <h3 class="font-bold text-xl flex items-center text-blue-700 group-hover:text-blue-800 transition-colors">
+                <i class="fa fa-gamepad mr-2"></i>服务器核心玩法
+                <i class="fa fa-chevron-right ml-2 text-sm transition-transform group-hover:translate-x-1"></i>
+            </h3>
+            <p class="mt-2 text-gray-700">点击查看Life服务器的核心玩法和特色内容...</p>
+        </div>
+
+        <div class="p-4 border rounded-xl shadow-sm hover:shadow-md transition-shadow bg-white" data-search="666 数字 含义">
+            <h3 class="font-bold text-lg text-gray-800">关于Life服务器</h3>
+            <p class="text-gray-600 mt-1">Life服务器的相关说明内容，包括服务器特色、规则和玩法介绍，为玩家提供优质的游戏体验环境...</p>
+        </div>
+        
+        <div class="p-4 border rounded-xl shadow-sm hover:shadow-md transition-shadow bg-white" data-search="搜索 功能 使用">
+            <h3 class="font-bold text-lg text-gray-800">网站功能</h3>
+            <p class="text-gray-600 mt-1">本网站提供服务器资讯、玩家社区、资源下载等功能，输入关键词可筛选内容，方便玩家快速获取所需信息...</p>
+        </div>
+    </div>
+
+    <!-- 模态框 - 显示服务器玩法信息 -->
+    <div id="modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 hidden">
+        <div id="modal-content" class="bg-white rounded-2xl max-w-md w-full mx-4 overflow-hidden animated-border opacity-0 scale-95 translate-y-4 transition-all duration-300">
+            <div class="p-5 border-b border-gray-100">
+                <h3 class="text-xl font-bold text-gray-800 flex justify-between items-center">
+                    <span>服务器核心玩法</span>
+                    <button id="close-modal" class="text-gray-400 hover:text-gray-600 transition-colors">
+                        <i class="fa fa-times text-lg"></i>
+                    </button>
+                </h3>
+            </div>
+            <div class="p-5">
+                <p class="text-gray-700 leading-relaxed">
+                    服务器现今为生存类型，服务器采用了高性能VPS，具体配置
+                    <span class="bg-clip-text text-transparent bg-gradient-to-r from-pink-400 to-purple-500 font-semibold">
+                        是R9_9950X|16GB内存|100GB硬盘
+                    </span>
+                    ，确保玩家流畅的游戏体验。
+                </p>
+                <p class="text-gray-700 leading-relaxed mt-3">
+                    我们致力于打造公平、稳定的游戏环境，定期更新内容，举办各类活动。祝您在Life服务器游玩愉快！
+                </p>
+            </div>
+            <div class="p-4 bg-gray-50 flex justify-end">
+                <button id="confirm-modal" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all transform hover:scale-105 active:scale-95">
+                    了解了
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 搜索逻辑
+        const input = document.getElementById('search');
+        const results = document.getElementById('search-results');
+        const items = document.querySelectorAll('[data-search]');
+
+        input.addEventListener('input', e => {
+            const val = e.target.value.toLowerCase();
+            results.innerHTML = '';
+            results.classList.toggle('hidden', !val);
+
+            if (!val) return;
+
+            const matches = Array.from(items).filter(item => 
+                item.dataset.search.toLowerCase().includes(val)
+            );
+
+            if (matches.length) {
+                matches.forEach(item => {
+                    const div = document.createElement('div');
+                    div.className = 'p-3 hover:bg-blue-50 cursor-pointer transition-colors';
+                    div.innerHTML = `<strong>${item.querySelector('h3').textContent}</strong>`;
+                    div.onclick = () => {
+                        item.scrollIntoView({ behavior: 'smooth' });
+                        results.classList.add('hidden');
+                        input.value = '';
+                    };
+                    results.appendChild(div);
+                });
+            } else {
+                results.innerHTML = '<div class="p-3 text-gray-500">无匹配内容</div>';
+            }
+        });
+
+        // 点击页面其他区域关闭搜索结果
+        document.addEventListener('click', e => {
+            if (!input.contains(e.target) && !results.contains(e.target)) {
+                results.classList.add('hidden');
+            }
+        });
+
+        // 模态框逻辑
+        const modal = document.getElementById('modal');
+        const modalContent = document.getElementById('modal-content');
+        const coreGameplay = document.getElementById('core-gameplay');
+        const closeModal = document.getElementById('close-modal');
+        const confirmModal = document.getElementById('confirm-modal');
+
+        // 打开模态框
+        coreGameplay.addEventListener('click', () => {
+            modal.classList.remove('hidden');
+            // 触发动画
+            setTimeout(() => {
+                modalContent.classList.remove('opacity-0', 'scale-95', 'translate-y-4');
+                modalContent.classList.add('opacity-100', 'scale-100', 'translate-y-0');
+            }, 50);
+        });
+
+        // 关闭模态框的函数
+        const hideModal = () => {
+            modalContent.classList.remove('opacity-100', 'scale-100', 'translate-y-0');
+            modalContent.classList.add('opacity-0', 'scale-95', 'translate-y-4');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        };
+
+        // 关闭模态框事件
+        closeModal.addEventListener('click', hideModal);
+        confirmModal.addEventListener('click', hideModal);
+        
+        // 点击模态框外部关闭
+        modal.addEventListener('click', e => {
+            if (e.target === modal) {
+                hideModal();
+            }
+        });
+
+        // 按ESC键关闭模态框
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+                hideModal();
+            }
+        });
+    </script>
+</body>
+</html>
